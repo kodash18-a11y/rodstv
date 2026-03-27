@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Родственники — сообщество доверия</title>
+  <style>
+    :root {
+      --bg: #f7f2ea;
+      --paper: #fffaf4;
+      --ink: #201a18;
+      --muted: #6d5f58;
+      --line: rgba(32,26,24,0.12);
+      --wine: #6e2e32;
+      --copper: #b67445;
+      --sand: #d8c2a5;
+      --shadow: 0 20px 50px rgba(32,26,24,0.08);
+      --radius: 22px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(182,116,69,0.12), transparent 28%),
+        linear-gradient(180deg, #fbf7f2 0%, var(--bg) 100%);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .hero {
+      padding: 56px 0 28px;
+    }
+    .topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(8px);
+      letter-spacing: 0.02em;
+      font-size: 14px;
+    }
+    h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(42px, 8vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+    .descriptor {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--wine);
+    }
+    .hero-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255,250,244,0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .lead {
+      font-size: clamp(20px, 2.5vw, 32px);
+      max-width: 15ch;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+    .muted { color: var(--muted); }
+    .quote {
+      border-left: 3px solid var(--copper);
+      padding-left: 18px;
+      margin-top: 24px;
+      color: var(--ink);
+      font-size: 18px;
+    }
+    .pill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.58);
+      font-size: 15px;
+    }
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .nav a {
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.6);
+      transition: transform .18s ease, border-color .18s ease;
+      font-size: 15px;
+    }
+    .nav a:hover { transform: translateY(-2px); border-color: rgba(110,46,50,0.28); }
+    main { padding: 18px 0 72px; }
+    section { padding: 18px 0; }
+    .section-box {
+      background: rgba(255,250,244,0.94);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 2px);
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      color: var(--wine);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 5vw, 50px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .list-item {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.56);
+    }
+    .list-item strong { display: block; margin-bottom: 4px; }
+    .accent {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(182,116,69,0.12);
+      color: var(--wine);
+      font-size: 14px;
+      margin-top: 12px;
+    }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: rgba(255,255,255,0.52);
+      min-height: 110px;
+    }
+    .footer {
+      padding: 12px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .section-grid, .nav, .mini-grid, .pill-grid { grid-template-columns: 1fr; }
+      .lead { max-width: none; }
+      .card, .section-box { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero wrap">
+    <div class="topline">Родственники — сеть доверия с тёплым человеческим ядром</div>
+    <h1>Родственники</h1>
+    <div class="descriptor">сообщество доверия</div>
+
+    <div class="hero-grid">
+      <div class="card">
+        <div class="lead">Это больше, чем просто чат. Это сообщество людей, связанных доверием, общим столом и готовностью быть полезными друг другу.</div>
+        <div class="quote">«Мы есть родственные души, те, с кем хочется быть». Здесь важны не шум и случайные контакты, а близость по духу, культура участия и ощущение: у тебя здесь всегда есть родственник.</div>
+      </div>
+      <div class="card">
+        <div class="muted">Ключевой принцип</div>
+        <div class="pill-grid">
+          <div class="pill">Человечность без инфантильности</div>
+          <div class="pill">Структура без корпоративной холодности</div>
+          <div class="pill">Партнёрство вместо навязчивой рекламы</div>
+          <div class="pill">Принадлежность вместо случайного нетворка</div>
+        </div>
+        <div class="accent">Взрослая, модерируемая, тёплая сеть доверия</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#about">О сообществе</a>
+      <a href="#rules">Регламент</a>
+      <a href="#partnership">Партнёрство</a>
+      <a href="#belonging">Принадлежность</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="about">
+      <div class="section-box">
+        <div class="eyebrow">Блок 1</div>
+        <h2>Что такое «Родственники»</h2>
+        <div class="section-grid">
+          <div>
+            <p>«Родственники» — это не просто тёплое комьюнити, а управляемая социально-партнёрская система: внешне лёгкая и человечная, внутри — собранная, модерируемая и основанная на правилах доверия. Её ценность не в контенте как таковом, а в плотной сети реальных связей, людей, площадок, инициатив и встреч.</p>
+            <p>Проект вырос из Красной Поляны, но уже мыслит шире локальной точки. У него есть собственный миф, ритуал встречи, язык благодарности и образ общего стола как формы объединения.</p>
+          </div>
+          <div class="list">
+            <div class="list-item"><strong>Суть</strong>Сообщество доверия, где человечность соединена со структурой.</div>
+            <div class="list-item"><strong>Роль</strong>Социальный фильтр, маркер качества и оболочка для полезных связей.</div>
+            <div class="list-item"><strong>Обещание</strong>Здесь можно встретить своих, проявиться экологично и получить доступ к сильной сети.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="section-box">
+        <div class="eyebrow">Блок 2</div>
+        <h2>Как устроено сообщество</h2>
+        <div class="section-grid">
+          <div>
+            <p>У «Родственников» нет задачи стать хаотичным чатом обо всём. Его сила — в рамке. Именно поэтому здесь важны регламент, модерация, уважение к общему пространству и понятные правила взаимодействия.</p>
+            <div class="mini-grid">
+              <div class="mini"><strong>Без оффтопа</strong><br>Личные разговоры, хаотичные споры и шум не должны разрушать среду.</div>
+              <div class="mini"><strong>Без прямой продажи</strong><br>Лобовая реклама не является нормой общения.</div>
+              <div class="mini"><strong>Сначала польза</strong><br>Проявленность строится через вклад, ценность и уважение.</div>
+              <div class="mini"><strong>Сначала общая среда</strong><br>Важнее сохранить качество пространства, чем дать свободу каждому формату.</div>
+            </div>
+          </div>
+          <div class="list">
+            <div class="list-item"><strong>Внешний слой</strong>Лёгкость, комфорт, близость по духу.</div>
+            <div class="list-item"><strong>Внутренний каркас</strong>Правила, фильтр, этика, взрослая управляемость.</div>
+            <div class="list-item"><strong>Зачем это нужно</strong>Чтобы сообщество можно было масштабировать, передавать, поддерживать и развивать без потери качества.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="partnership">
+      <div class="section-box">
+        <div class="eyebrow">Блок 3</div>
+        <h2>Как работает партнёрство</h2>
+        <div class="section-grid">
+          <div>
+            <p>Партнёрство в «Родственниках» — это не покупка рекламы. Здесь нельзя просто разместиться за деньги. Допуск к проявлению строится через участие и реальный вклад: человек помогает общему делу, поддерживает событие, продукты, логистику или другую форму пользы — и получает статус партнёра внутри доверительной системы.</p>
+            <p>Поэтому бренд работает не как рекламная площадка, а как механизм допуска и общественной валидации качества. В этом смысле «Проверено родственниками» — не декоративная фраза, а будущий маркер доверия.</p>
+          </div>
+          <div class="list">
+            <div class="list-item"><strong>Логика</strong>Вклад → доверие → проявленность → связи.</div>
+            <div class="list-item"><strong>Результат</strong>Партнёр входит не в рекламный инвентарь, а в живую систему репутации и рекомендаций.</div>
+            <div class="list-item"><strong>Потенциал</strong>Коллаборации, афиши, знаки доверия, благодарности, события, мерч и масштабирование в другие города.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="belonging">
+      <div class="section-box">
+        <div class="eyebrow">Блок 4</div>
+        <h2>Зачем человеку быть внутри</h2>
+        <div class="section-grid">
+          <div>
+            <p>Главная выгода «Родственников» — не информационный поток, а чувство принадлежности. Это доступ к среде, где можно не просто познакомиться, а оказаться в поле доверия, поддержки, рекомендаций, человеческого тепла и совместных действий.</p>
+            <p>Здесь важна не роль наблюдателя, а участие. Сообщество работает тогда, когда человек входит в него не как случайный потребитель, а как часть целого.</p>
+          </div>
+          <div class="list">
+            <div class="list-item"><strong>Эмоционально</strong>У тебя здесь всегда есть родственник.</div>
+            <div class="list-item"><strong>Практически</strong>Связи, помощь, партнёрства, события, рекомендации и точка входа в живую сеть.</div>
+            <div class="list-item"><strong>На уровне культуры</strong>Общий стол, благодарность, доверие, знак качества и взрослая взаимная опора.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="wrap footer">
+    Черновой лендинг-концепт для обсуждения структуры, смыслов и визуального направления.
+  </div>
+</body>
+</html>
